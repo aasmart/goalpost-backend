@@ -27,7 +27,11 @@ SECRET_KEY = 'django-insecure-l$ur#dxurwns9^a*qb6=at@-u)aj#_dys2q8qvdj3)$_3-=3gg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "172.17.157.57"]
+CORS_ALLOWED_ORIGINS = [
+    "https://172.17.157.57:8081",
+    "http://localhost:8081",
+]
 
 
 # Application definition
@@ -157,6 +161,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    )
+}
+
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'jwt-auth',
@@ -167,10 +177,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 #Following is added to enable registration with email instead of username
 AUTHENTICATION_BACKENDS = (
- # Needed to login by username in Django admin, regardless of `allauth`
  "django.contrib.auth.backends.ModelBackend",
-
- # `allauth` specific authentication methods, such as login by e-mail
  "allauth.account.auth_backends.AuthenticationBackend",
 )
 AUTH_USER_MODEL = "goalpost_app.GoalpostUser"
