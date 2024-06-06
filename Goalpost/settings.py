@@ -1,3 +1,4 @@
+import datetime
 import os
 
 """
@@ -170,15 +171,17 @@ REST_FRAMEWORK = {
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'jwt-auth',
+    #'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'USER_DETAILS_SERIALIZER': 'goalpost_app.serializers.GoalpostUserDetailsSerializer',
 }
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True   
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
 #Following is added to enable registration with email instead of username
 AUTHENTICATION_BACKENDS = (
- "django.contrib.auth.backends.ModelBackend",
- "allauth.account.auth_backends.AuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 AUTH_USER_MODEL = "goalpost_app.GoalpostUser"
 
